@@ -99,7 +99,7 @@ pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2
     return(res)
   }
 
-  msmsdir <- paste(outdir,"\\msms\\",collapse="",seq="")
+  msmsdir <- paste(outdir,"/msms/",collapse="",seq="")
   spectra <- list.files(msmsdir)
   outmsms <- paste(msmsdir,sub(pattern = ".mgf$",replacement = ".clean.mgf",mgf),collapse="",seq="")
   file.create(outmsms)
@@ -230,6 +230,9 @@ doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2){
               col.names = FALSE,row.names = FALSE,
               quote=FALSE,sep=" ",append = TRUE)
   write("END IONS\n",file = resMgf,append = TRUE)
+
+  file.remove(edgefile)
+  file.remove(vertexfile)
   return(data.frame(npeak=vcount(g),rpeak=max(comp$csize)))
 }
 
