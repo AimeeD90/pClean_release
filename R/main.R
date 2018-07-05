@@ -119,13 +119,18 @@ pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2
 #' @return MGF
 #' @export
 doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2){
+  tmpdir <- paste(outdir,"\\tmpdir",collapse = "",sep = "")
+  if (dir.exists(tmpdir)) {
+  }else{
+    dir.create(tmpdir)
+  }
 
   edgefile <- dat$edge
   vertexfile <- dat$vertex
 
   fileprefix = paste(outdir,"/",dat$index,sep="")
 
-  edgelist <- read_tsv(edgefile,na = "")
+  edgelist <- readr::read_tsv(edgefile,na = "")
   edgelist <- edgelist %>% mutate(From = as.character(From),
                                   To = as.character(To),
                                   naa = nchar(deltaName)) # %>%
@@ -193,7 +198,8 @@ doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2){
                     "PEPMASS=",dat$mz," ",dat$intensity,"\n",
                     "CHARGE=",dat$charge,"+",sep="")
   mgffile <- sub(pattern = ".txt$",replacement = ".mgf",x=dat$vertex)
-  write(mgftitle,file = mgffile)
+
+  write(mgftitle,file = paste(tmpdir,"\\",mgffile,collapse="",sep=""))
   write.table(peaks,file = mgffile,
               col.names = FALSE,row.names = FALSE,
               quote=FALSE,sep=" ",append = TRUE)
