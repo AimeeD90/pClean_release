@@ -125,10 +125,23 @@ doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2){
     dir.create(msms)
   }
 
+  png <- paste(outdir,"\\png",collapse = "",sep = "")
+  if (dir.exists(png)) {
+  }else{
+    dir.create(png)
+  }
+
+  gml <- paste(outdir,"\\gml",collapse = "",sep = "")
+  if (dir.exists(gml)) {
+  }else{
+    dir.create(gml)
+  }
+
   edgefile <- dat$edge
   vertexfile <- dat$vertex
 
-  fileprefix = paste(outdir,"/",dat$index,sep="")
+  fileprefixpng = paste(png,"/",dat$index,sep="")
+  fileprefixgml = paste(gml,"/",dat$index,sep="")
 
   edgelist <- readr::read_tsv(edgefile,na = "")
   edgelist <- edgelist %>% mutate(From = as.character(From),
@@ -161,7 +174,7 @@ doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2){
   E(g)$weight <- ifelse(E(g)$naa==1,6,1)
 
   if(TRUE==plot){
-    png(paste(fileprefix,".png",sep=""),width = 700,height = 700,res=110)
+    png(paste(fileprefixpng,".png",sep=""),width = 700,height = 700,res=110)
     par(mar=c(0,0,0,0))
     plot(g,vertex.label=V(g)$type,
          vertex.label.cex=0.6,
@@ -171,7 +184,7 @@ doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2){
          layout=layout_nicely)
 
     dev.off()
-    write_graph(g,file=paste(fileprefix,".gml",sep=""),format = "gml")
+    write_graph(g,file=paste(fileprefixgml,".gml",sep=""),format = "gml")
   }
 
   comp <- components(g,mode="weak")
