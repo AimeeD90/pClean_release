@@ -198,8 +198,6 @@ doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2){
               col.names = FALSE,row.names = FALSE,
               quote=FALSE,sep=" ",append = TRUE)
   write("END IONS\n",file = mgffile,append = TRUE)
-
-  file.append(resMgf,mgffile)
   return(data.frame(npeak=vcount(g),rpeak=max(comp$csize)))
 }
 
