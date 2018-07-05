@@ -77,7 +77,7 @@ pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2
   message("Preprocessing begining ...")
   system(command=runcmd)
   message("Graph-based network analysis ...")
-  fs <- read_tsv(paste(outdir,"/spectrumInfor.txt",sep=""))
+  fs <- readr::read_tsv(paste(outdir,"/spectrumInfor.txt",sep=""))
 
   if(cpu==1){
     res <- fs %>% group_by(index) %>%
@@ -88,14 +88,14 @@ pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2
       cpu <- parallel::detectCores()
     }
     cl <- parallel::makeCluster(getOption("cl.cores", cpu))
-    clusterEvalQ(cl,library("readr"))
-    clusterEvalQ(cl,library("dplyr"))
-    clusterEvalQ(cl,library("igraph"))
-    clusterEvalQ(cl,options(bitmapType="cairo"))
+    parallel::clusterEvalQ(cl,library("readr"))
+    parallel::clusterEvalQ(cl,library("dplyr"))
+    parallel::clusterEvalQ(cl,library("igraph"))
+    parallel::clusterEvalQ(cl,options(bitmapType="cairo"))
     xx <- lapply(1:nrow(fs),.myfun,fs)
-    res <- parLapply(cl,xx,pClean::doNetwork,outdir=outdir,
+    res <- parallel::parLapply(cl,xx,pClean::doNetwork,outdir=outdir,
                      plot=plot,outliers.coef=ms2tolfilter)
-    stopCluster(cl)
+    parallel::stopCluster(cl)
     return(res)
   }
 }
@@ -126,8 +126,8 @@ doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2){
   fileprefix = paste(outdir,"/",dat$index,sep="")
 
   edgelist <- read_tsv(edgefile,na = "")
-  edgelist <- edgelist %>% mutate(From = .bfun(as.character(From)),
-                                  To = .bfun(as.character(To)),
+  edgelist <- edgelist %>% mutate(From = as.character(From),
+                                  To = as.character(To),
                                   naa = nchar(deltaName)) # %>%
   #filter(naa==1)
   # if interactions of two ions has both high-level interactions and low-level interactions,
