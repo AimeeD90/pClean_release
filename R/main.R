@@ -119,10 +119,10 @@ pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2
 #' @return MGF
 #' @export
 doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2){
-  tmpdir <- paste(outdir,"\\tmpdir",collapse = "",sep = "")
-  if (dir.exists(tmpdir)) {
+  msms <- paste(outdir,"\\msms",collapse = "",sep = "")
+  if (dir.exists(msms)) {
   }else{
-    dir.create(tmpdir)
+    dir.create(msms)
   }
 
   edgefile <- dat$edge
@@ -197,13 +197,16 @@ doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2){
                     "TITLE=",dat$title,"\n",
                     "PEPMASS=",dat$mz," ",dat$intensity,"\n",
                     "CHARGE=",dat$charge,"+",sep="")
-  mgffile <- sub(pattern = ".txt$",replacement = ".mgf",x=dat$vertex)
 
-  write(mgftitle,file = paste(tmpdir,"\\",mgffile,collapse="",sep=""))
-  write.table(peaks,file = mgffile,
+
+  mgffile <- sub(pattern = ".txt$",replacement = ".mgf",x= tail(unlist(strsplit(dat$vertex,"/")),1))
+  #mgffile <- sub(pattern = ".txt$",replacement = ".mgf",x=dat$vertex)
+  resMgf <- paste(msms,"\\",mgffile,collapse="",sep="")
+  write(mgftitle,file = resMgf)
+  write.table(peaks,file = resMgf,
               col.names = FALSE,row.names = FALSE,
               quote=FALSE,sep=" ",append = TRUE)
-  write("END IONS\n",file = mgffile,append = TRUE)
+  write("END IONS\n",file = resMgf,append = TRUE)
   return(data.frame(npeak=vcount(g),rpeak=max(comp$csize)))
 }
 
