@@ -113,9 +113,12 @@ mergeMGF <- function(dir=NULL,name=NULL,clean=TRUE){
   output <- paste(dir,"/",name,collapse = "",sep = "")
   file.create(output)
   file.append(output,spectraList)
+  currentdir <- getwd()
   if (clean) {
+    setwd(dir)
     file.remove(spectraList)
   }
+  setwd(currentdir)
   return(length(spectraList))
 }
 
