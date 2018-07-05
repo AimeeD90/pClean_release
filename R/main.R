@@ -21,7 +21,7 @@
 #' @param idres Use MSGF identification result to annotate peaks (.mzid), default NULL.
 #' @return A much cleaner MS/MS data.
 #' @export
-pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2=TRUE,mionFilter=FALSE,labelMethod=NULL,repFilter=FALSE,labelFilter=FALSE,low=FALSE,high=FALSE,isoReduction=FALSE,chargeDeconv=FALSE,largerThanPrecursor=FALSE,idres=NULL,ms2tolfilter=1.2){
+pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2=TRUE,mionFilter=FALSE,labelMethod=NULL,repFilter=FALSE,labelFilter=FALSE,low=FALSE,high=FALSE,isoReduction=FALSE,chargeDeconv=FALSE,largerThanPrecursor=FALSE,ionsMarge=FALSE,idres=NULL,ms2tolfilter=1.2){
   dir.create(outdir,recursive = TRUE,showWarnings = FALSE)
   ph<-paste("java",paste("-Xmx",mem,"G",sep=""),"-jar",
             paste("\"",paste(system.file("pClean.jar",

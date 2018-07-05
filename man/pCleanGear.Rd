@@ -8,8 +8,8 @@ pCleanGear(mgf = NULL, itol = 0.05, outdir = "./", mem = 1,
   cpu = 0, plot = FALSE, aa2 = TRUE, mionFilter = FALSE,
   labelMethod = NULL, repFilter = FALSE, labelFilter = FALSE,
   low = FALSE, high = FALSE, isoReduction = FALSE,
-  chargeDeconv = FALSE, largerThanPrecursor = FALSE, idres = NULL,
-  ms2tolfilter = 1.2)
+  chargeDeconv = FALSE, largerThanPrecursor = FALSE,
+  ionsMarge = FALSE, idres = NULL, ms2tolfilter = 1.2)
 }
 \arguments{
 \item{mgf}{Input MS/MS data in MGF format.}
@@ -42,11 +42,11 @@ pCleanGear(mgf = NULL, itol = 0.05, outdir = "./", mem = 1,
 
 \item{largerThanPrecursor}{Remove ions larger than precursor, default FALSE.}
 
+\item{ionsMarge}{Marge two adjecent ions with similar m/z, default FALSE.}
+
 \item{idres}{Use MSGF identification result to annotate peaks (.mzid), default NULL.}
 
 \item{ms2tolfilter}{Default 1.2.}
-
-\item{ionsMarge}{Marge two adjecent ions with similar m/z, default FALSE.}
 }
 \value{
 A much cleaner MS/MS data.
