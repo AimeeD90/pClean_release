@@ -109,11 +109,12 @@ pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2
 #' @export
 mergeMGF <- function(dir=NULL,name=NULL){
   spectra <- list.files(dir)
-  file.create(name)
+  output <- paste(dir,"/",name,collapse = "",sep = "")
+  file.create(output)
   j <- 0
   for( i in 0:(length(spectra)-1) ){
-    currfile <- spectra[i]
-    file.append(name,currfile)
+    currfile <- paste(dir,"/",spectra[i],collapse = "",sep = "")
+    file.append(output,currfile)
     j <- j+1
     file.remove(currfile)
   }
