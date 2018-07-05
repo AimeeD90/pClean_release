@@ -4,12 +4,14 @@
 \alias{mergeMGF}
 \title{Merge MGF files}
 \usage{
-mergeMGF(dir = NULL, name = NULL)
+mergeMGF(dir = NULL, name = NULL, clean = TRUE)
 }
 \arguments{
 \item{dir}{The directry of MS/MS data}
 
 \item{name}{Merged file name}
+
+\item{clean}{Delete individual MS/MS spectrum file}
 }
 \value{
 MGF

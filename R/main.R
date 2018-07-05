@@ -105,20 +105,18 @@ pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2
 #' @describeIn Merge multiply MS/MS data
 #' @param dir The directry of MS/MS data
 #' @param name Merged file name
+#' @param clean Delete individual MS/MS spectrum file
 #' @return MGF
 #' @export
-mergeMGF <- function(dir=NULL,name=NULL){
-  spectra <- list.files(dir)
+mergeMGF <- function(dir=NULL,name=NULL,clean=TRUE){
+  spectraList <- list.files(dir)
   output <- paste(dir,"/",name,collapse = "",sep = "")
   file.create(output)
-  j <- 0
-  for( i in 0:(length(spectra)-1) ){
-    currfile <- paste(dir,"/",spectra[i],collapse = "",sep = "")
-    file.append(output,currfile)
-    j <- j+1
-    file.remove(currfile)
+  file.append(output,spectraList)
+  if (clean) {
+    file.remove(spectraList)
   }
-  return(j)
+  return(length(spectraList))
 }
 
 #' @title Make a list nesting another list
