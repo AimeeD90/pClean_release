@@ -98,6 +98,16 @@ pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2
     parallel::stopCluster(cl)
     return(res)
   }
+
+  msmsdir <- paste(outdir,"\\msms\\",collapse="",seq="")
+  spectra <- list.files(msmsdir)
+  outmsms <- paste(msmsdir,sub(pattern = ".mgf$",replacement = ".clean.mgf",mgf),collapse="",seq="")
+  file.create(outmsms)
+  for( i in 0:(length(spectra)-1) ){
+    currfile <- spectra[i]
+    file.append(outmsms,currfile)
+    file.remove(currfile)
+  }
 }
 
 
