@@ -141,19 +141,19 @@ mergeMGF <- function(dir=NULL,name=NULL,clean=TRUE){
 #' @return MGF
 #' @export
 doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2){
-  msms <- paste(outdir,"\\msms",collapse = "",sep = "")
+  msms <- paste(outdir,"/msms",collapse = "",sep = "")
   if (dir.exists(msms)) {
   }else{
     dir.create(msms)
   }
 
-  png <- paste(outdir,"\\png",collapse = "",sep = "")
+  png <- paste(outdir,"/png",collapse = "",sep = "")
   if (dir.exists(png)) {
   }else{
     dir.create(png)
   }
 
-  gml <- paste(outdir,"\\gml",collapse = "",sep = "")
+  gml <- paste(outdir,"/gml",collapse = "",sep = "")
   if (dir.exists(gml)) {
   }else{
     dir.create(gml)
@@ -236,7 +236,7 @@ doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2){
 
   mgffile <- sub(pattern = ".txt$",replacement = ".mgf",x= tail(unlist(strsplit(dat$vertex,"/")),1))
   #mgffile <- sub(pattern = ".txt$",replacement = ".mgf",x=dat$vertex)
-  resMgf <- paste(msms,"\\",mgffile,collapse="",sep="")
+  resMgf <- paste(msms,"/",mgffile,collapse="",sep="")
   write(mgftitle,file = resMgf)
   write.table(peaks,file = resMgf,
               col.names = FALSE,row.names = FALSE,
