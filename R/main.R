@@ -147,18 +147,6 @@ doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2){
     dir.create(msms)
   }
 
-  png <- paste(outdir,"/png",collapse = "",sep = "")
-  if (dir.exists(png)) {
-  }else{
-    dir.create(png)
-  }
-
-  gml <- paste(outdir,"/gml",collapse = "",sep = "")
-  if (dir.exists(gml)) {
-  }else{
-    dir.create(gml)
-  }
-
   edgefile <- dat$edge
   vertexfile <- dat$vertex
 
@@ -196,6 +184,18 @@ doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2){
   E(g)$weight <- ifelse(E(g)$naa==1,6,1)
 
   if(TRUE==plot){
+    png <- paste(outdir,"/png",collapse = "",sep = "")
+    if (dir.exists(png)) {
+    }else{
+      dir.create(png)
+    }
+
+    gml <- paste(outdir,"/gml",collapse = "",sep = "")
+    if (dir.exists(gml)) {
+    }else{
+      dir.create(gml)
+    }
+
     png(paste(fileprefixpng,".png",sep=""),width = 700,height = 700,res=110)
     par(mar=c(0,0,0,0))
     plot(g,vertex.label=V(g)$type,
