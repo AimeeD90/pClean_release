@@ -150,9 +150,6 @@ doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2){
   edgefile <- dat$edge
   vertexfile <- dat$vertex
 
-  fileprefixpng = paste(png,"/",dat$index,sep="")
-  fileprefixgml = paste(gml,"/",dat$index,sep="")
-
   edgelist <- readr::read_tsv(edgefile,na = "")
   edgelist <- edgelist %>% mutate(From = as.character(From),
                                   To = as.character(To),
@@ -189,12 +186,13 @@ doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2){
     }else{
       dir.create(png)
     }
-
     gml <- paste(outdir,"/gml",collapse = "",sep = "")
     if (dir.exists(gml)) {
     }else{
       dir.create(gml)
     }
+    fileprefixpng = paste(png,"/",dat$index,sep="")
+    fileprefixgml = paste(gml,"/",dat$index,sep="")
 
     png(paste(fileprefixpng,".png",sep=""),width = 700,height = 700,res=110)
     par(mar=c(0,0,0,0))
