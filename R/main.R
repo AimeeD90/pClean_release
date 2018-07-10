@@ -110,12 +110,10 @@ pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2
 #' @export
 mergeMGF <- function(dir=NULL,name=NULL,clean=TRUE){
   spectraList <- list.files(dir)
-  output <- paste(dir,"/",name,collapse = "",sep = "")
-  file.create(output)
   currentdir <- getwd()
   setwd(dir)
-
-  file.append(output,spectraList)
+  file.create(name)
+  file.append(name,spectraList)
   if (clean) {
     file.remove(spectraList)
   }
