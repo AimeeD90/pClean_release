@@ -200,7 +200,6 @@ doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2){
          edge.label.cex=0.5,
          edge.arrow.size=0.3,
          layout=layout_nicely)
-
     dev.off()
     write_graph(g,file=paste(fileprefixgml,".gml",sep=""),format = "gml")
   }
