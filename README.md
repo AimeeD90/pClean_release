@@ -4,7 +4,6 @@
 
 pClean is a powerful tool to preprocess high-resolution tandem mass spectra prior to database searching, which integrated three modules, removal of label-associated ions, isotope peak reduction and charge deconvolution, and a graph-based network approach and aimed at filtering out extraneous peaks with/without specific-feature. pClean is supportive to a wide array of instruments with all types of MS data, and incorporative into most data analysis pipelines.
 
-
 ## Resources and executive environment
 
 pClean is programed in Java and R, and released as a R package.
@@ -20,7 +19,6 @@ pClean is programed in Java and R, and released as a R package.
 **Hardware:** 2 CPUs, 4 Gb memory (the more, the better)
 
 **MS/MS data for testing:** The testing data are available at [https://github.com/AimeeD90/pClean_upload.tar.gz](https://github.com/AimeeD90/pClean_upload.tar.gz).
-
 
 ## How to use pClean
 
