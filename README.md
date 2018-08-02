@@ -84,7 +84,9 @@ Here, we use one fraction of TTE dataset (peptide labeled with iTRAQ8plex) and o
 
 Optionally, if you want to visualize the construction of ions-network graph, and annotate ions with corresponding peptide fragment, you need do a database search in advance. At present, pClean supports parsing identification results from dat and mzid. The provided sample mzid file was generated using MSGF+ software. To fulfill this purpose, please use the following commands:
 
-    pCleanGear(mgf="TTE.frac1.mgf",outdir="./tte/result",mem=2,cpu=0,mionFilter=TRUE,labelMethod="iTRAQ8plex",repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE,network=TRUE,plot=TRUE,idres="./tte/TTE.frac1.mzid")
+    pCleanGear(mgf="TTE.frac1.mgf",outdir="./tte/result",mem=2,cpu=0,mionFilter=TRUE,labelMethod="iTRAQ8plex",
+    repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,
+    ionsMarge=TRUE,network=TRUE,plot=TRUE,idres="./tte/TTE.frac1.mzid")
     
     mergeMGF(dir="./tte/result/msms",name="tte.frac1.pClean.mgf")
     
