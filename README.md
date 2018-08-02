@@ -60,11 +60,11 @@ Here, we use one fraction of TTE dataset (peptide labeled with iTRAQ8plex) and o
     
 2)  Set parameters then run pClean:
 
-    `pCleanGear(mgf="TTE.frac1.mgf",outdir="/USER/dengyamei/Workdir/assessment/tte/result",mem=2,cpu=0,mionFilter=TRUE, labelMethod=”iTRAQ8plex”, repFilter=TRUE,labelFilter=TRUE, labelFilter =TRUE,high=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE, network=TRUE)`
+    `pCleanGear(mgf="TTE.frac1.mgf",outdir="./tte/result",mem=2,cpu=0,mionFilter=TRUE,labelMethod=”iTRAQ8plex”,repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE,network=TRUE)`
     
 3)  The resultant MS/MS spectra are written to the ms/ms directory in separate files. To merge all the files, run this:
 
-    `mergeMGF(dir=“/USER/dengyamei/Workdir/assessment/tte/result/msms”,name=“tte.frac1.pClean.mgf”)`
+    `mergeMGF(dir="./tte/result/msms",name="tte.frac1.pClean.mgf")`
     
 **3.3.2 pClean treatment on label-free MS/MS data**
 
@@ -74,21 +74,21 @@ Here, we use one fraction of TTE dataset (peptide labeled with iTRAQ8plex) and o
     
 2)  Set parameters then run pClean:
 
-    `pCleanGear(mgf="Jurkat.frac1.mgf",outdir="/USER/dengyamei/Workdir/assessment/jurkat/result",mem=2,cpu=0,mionFilter=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE, network=TRUE)`
+    `pCleanGear(mgf="Jurkat.frac1.mgf",outdir="./jurkat/result",mem=2,cpu=0,mionFilter=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE,network=TRUE)`
     
 3)  The resultant MS/MS spectra are written to the ms/ms directory in separate files. To merge all the files, run this:
 
-    `mergeMGF(dir=“/USER/dengyamei/Workdir/assessment/jurkat/result/msms”,name=“Jurkat.frac1.pClean.mgf”)`
+    `mergeMGF(dir="./jurkat/result/msms",name="Jurkat.frac1.pClean.mgf")`
     
 **3.3.3 Visualization of ions-network**
 
-Optionally, if you want to visualize the construction of ions-network graph, and annotate ions with corresponding peptide fragment, you need do a database search in advance. At present, pClean supports parsing identification results from mzid and dat. The provided sample mzid file was generated using MSGF+ software. To fulfill this purpose, please use the following commands:
+Optionally, if you want to visualize the construction of ions-network graph, and annotate ions with corresponding peptide fragment, you need do a database search in advance. At present, pClean supports parsing identification results from dat and mzid. The provided sample mzid file was generated using MSGF+ software. To fulfill this purpose, please use the following commands:
 
-    `pCleanGear(mgf="TTE.frac1.mgf",outdir="/USER/dengyamei/Workdir/assessment/tte/result",mem=2,cpu=0,mionFilter=TRUE, labelMethod=”iTRAQ8plex”, repFilter=TRUE,labelFilter=TRUE, labelFilter=TRUE,high=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE, network=TRUE,plot=TRUE,idres="/USER/dengyamei/Workdir/assessment/tte/TTE.frac1.mzid")`
+    `pCleanGear(mgf="TTE.frac1.mgf",outdir="./tte/result",mem=2,cpu=0,mionFilter=TRUE,labelMethod=”iTRAQ8plex”,repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE,network=TRUE,plot=TRUE,idres="./tte/TTE.frac1.mzid")`
     
-    `mergeMGF(dir=“/USER/dengyamei/Workdir/assessment/tte/result/msms”,name=“tte.frac1.pClean.mgf”)`
+    `mergeMGF(dir="./tte/result/msms",name="tte.frac1.pClean.mgf")`
     
-Once the progress completed, pClean creates a png directory and a gml directory. You can match a png or gml file to the corresponding MS/MS spectrum with the help of `spectrumInfor.txt (under the directory:/USER/dengyamei/Workdir/assessment/tte/result/)`.
+Once the progress completed, pClean creates a png directory and a gml directory. You can match a png or gml file to the corresponding MS/MS spectrum with the help of `spectrumInfor.txt (under the directory:./tte/result/)`.
 
 **3.4 Parameters**
 
