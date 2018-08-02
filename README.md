@@ -37,17 +37,17 @@ Note that if you are a Windows user, please add Java path to the system path aft
 * Open R software (recommended RStudio), and install package "devtools" via commands:
 
 
-    install.packages("devtools")
+    `install.packages("devtools")
     
-    library(devtools)
+    library(devtools)`
 
     
 * Install pClean package using the following command:
 
 
-    devtools::install_github("AimeeD90/pClean_release")
+    `devtools::install_github("AimeeD90/pClean_release")
     
-    library(pClean)
+    library(pClean)`
     
     
 * Now pClean is executable on your work station.
