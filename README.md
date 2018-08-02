@@ -38,6 +38,7 @@ Note that if you are a Windows user, please add Java path to the system path aft
 
 
     install.packages("devtools")
+    
     library(devtools)
 
     
@@ -45,6 +46,7 @@ Note that if you are a Windows user, please add Java path to the system path aft
 
 
     devtools::install_github("AimeeD90/pClean_release")
+    
     library(pClean)
     
     
