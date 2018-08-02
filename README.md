@@ -36,15 +36,17 @@ Note that if you are a Windows user, please add Java path to the system path aft
 
 * Open R software (recommended RStudio), and install package "devtools" via commands:
 
-    `install.packages("devtools")`
-    
-    `library(devtools)`
+
+    install.packages("devtools")
+    library(devtools)
+
     
 * Install pClean package using the following command:
 
-    `devtools::install_github("AimeeD90/pClean_release")`
+
+    devtools::install_github("AimeeD90/pClean_release")
+    library(pClean)
     
-    `library(pClean)`
     
 * Now pClean is executable on your work station.
 
@@ -56,29 +58,29 @@ Here, we use one fraction of TTE dataset (peptide labeled with iTRAQ8plex) and o
 
 1)  Open R and load pClean, type: 
 
-    `library(pClean)`
+    library(pClean)
     
 2)  Set parameters then run pClean:
 
-    `pCleanGear(mgf="TTE.frac1.mgf",outdir="./tte/result",mem=2,cpu=0,mionFilter=TRUE,labelMethod="iTRAQ8plex",repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE,network=TRUE)`
+    pCleanGear(mgf="TTE.frac1.mgf",outdir="./tte/result",mem=2,cpu=0,mionFilter=TRUE,labelMethod="iTRAQ8plex",repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE,network=TRUE)
     
 3)  The resultant MS/MS spectra are written to the ms/ms directory in separate files. To merge all the files, run this:
 
-    `mergeMGF(dir="./tte/result/msms",name="tte.frac1.pClean.mgf")`
+    mergeMGF(dir="./tte/result/msms",name="tte.frac1.pClean.mgf")
     
 **3.3.2  pClean treatment on label-free MS/MS data**
 
 1)  Open R and load pClean, and type: 
 
-    `library(pClean)`
+    library(pClean)
     
 2)  Set parameters then run pClean:
 
-    `pCleanGear(mgf="Jurkat.frac1.mgf",outdir="./jurkat/result",mem=2,cpu=0,mionFilter=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE,network=TRUE)`
+    pCleanGear(mgf="Jurkat.frac1.mgf",outdir="./jurkat/result",mem=2,cpu=0,mionFilter=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE,network=TRUE)
     
 3)  The resultant MS/MS spectra are written to the ms/ms directory in separate files. To merge all the files, run this:
 
-    `mergeMGF(dir="./jurkat/result/msms",name="Jurkat.frac1.pClean.mgf")`
+    mergeMGF(dir="./jurkat/result/msms",name="Jurkat.frac1.pClean.mgf")
     
 **3.3.3  Visualization of ions-network**
 
