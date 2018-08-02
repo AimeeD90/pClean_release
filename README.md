@@ -2,23 +2,23 @@
 
 ![Downloads](https://img.shields.io/github/downloads/AimeeD90/pClean_release/total.svg)
 
-pClean is a novel algorithm to preprocess high-resolution tandem mass spectra prior to database searching, which integrated three modules, removal of label-associated ions, isotope peak reduction and charge deconvolution, and a graph-based network approach and aimed at filtering out extraneous peaks with/without specific-feature. pClean is supportive to a wide array of instruments with all types of MS data, and incorporative into most data analysis pipelines.
+pClean is a powerful tool to preprocess high-resolution tandem mass spectra prior to database searching, which integrated three modules, removal of label-associated ions, isotope peak reduction and charge deconvolution, and a graph-based network approach and aimed at filtering out extraneous peaks with/without specific-feature. pClean is supportive to a wide array of instruments with all types of MS data, and incorporative into most data analysis pipelines.
 
 ## Resources and executive environment
 
 pClean is programed in Java and R, and released as a R package.
 
-Software download: The source code is available at [https://github.com/AimeeD90/pClean](https://github.com/AimeeD90/pClean), and the released software is downloadable at [https://github.com/AimeeD90/pClean_release](https://github.com/AimeeD90/pClean_release). Please download the latest version.
+**Software download:** The source code is available at [https://github.com/AimeeD90/pClean](https://github.com/AimeeD90/pClean), and the released software is downloadable at [https://github.com/AimeeD90/pClean_release](https://github.com/AimeeD90/pClean_release). Please download the latest version.
 
-Java version: 1.8 or later
+**Java version:** 1.8 or later
 
-R version: 3.5.0 or later
+**R version:** 3.5.0 or later
 
-Operation platforms: Windows, Mac OSX, Linux
+**Operation platforms:** Windows, Mac OSX, Linux
 
-Hardware: 2 CPUs, 4 Gb memory (the more, the better)
+**Hardware:** 2 CPUs, 4 Gb memory (the more, the better)
 
-MS/MS data for testing: The testing data are available at [https://github.com/AimeeD90/pClean_upload.tar.gz](https://github.com/AimeeD90/pClean_upload.tar.gz).
+**MS/MS data for testing:** The testing data are available at [https://github.com/AimeeD90/pClean_upload.tar.gz](https://github.com/AimeeD90/pClean_upload.tar.gz).
 
 ## How to use pClean
 
@@ -84,8 +84,8 @@ Here, we use one fraction of TTE dataset (peptide labeled with iTRAQ8plex) and o
 
 Optionally, if you want to visualize the construction of ions-network graph, and annotate ions with corresponding peptide fragment, you need do a database search in advance. At present, pClean supports parsing identification results from dat and mzid. The provided sample mzid file was generated using MSGF+ software. To fulfill this purpose, please use the following commands:
 
-    `pCleanGear(mgf="TTE.frac1.mgf",outdir="./tte/result",mem=2,cpu=0,mionFilter=TRUE,labelMethod="iTRAQ8plex",\
-    repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,\
+    `pCleanGear(mgf="TTE.frac1.mgf",outdir="./tte/result",mem=2,cpu=0,mionFilter=TRUE,labelMethod="iTRAQ8plex",
+    repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,
     ionsMarge=TRUE,network=TRUE,plot=TRUE,idres="./tte/TTE.frac1.mzid")`
     
     `mergeMGF(dir="./tte/result/msms",name="tte.frac1.pClean.mgf")`
