@@ -15,8 +15,7 @@ Encoding: UTF-8
 LazyData: FALSE
 Depends: R (>= 3.5.0)
 Imports: igraph,dplyr,readr,parallel
-Suggests: ,
-    knitr,
-    rmarkdown
+Suggests:
 RoxygenNote: 6.0.1.9000
-VignetteBuilder: knitr
+NeedsCompilation: no
+Packaged: 2018-07-11 09:13:33 UTC; dengyamei
