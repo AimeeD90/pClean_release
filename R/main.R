@@ -18,10 +18,11 @@
 #' @param chargeDeconv Charge deconvolution, default FALSE.
 #' @param largerThanPrecursor Remove ions larger than precursor, default FALSE.
 #' @param ionsMarge Marge two adjecent ions with similar m/z, default FALSE.
+#' @param network Graph-based network filtration.
 #' @param idres Use MSGF identification result to annotate peaks (.mzid), default NULL.
 #' @return A much cleaner MS/MS data.
 #' @export
-pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2=TRUE,mionFilter=FALSE,labelMethod=NULL,repFilter=FALSE,labelFilter=FALSE,low=FALSE,high=FALSE,isoReduction=FALSE,chargeDeconv=FALSE,largerThanPrecursor=FALSE,ionsMarge=FALSE,idres=NULL,ms2tolfilter=1.2){
+pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2=TRUE,mionFilter=FALSE,labelMethod=NULL,repFilter=FALSE,labelFilter=FALSE,low=FALSE,high=FALSE,isoReduction=FALSE,chargeDeconv=FALSE,largerThanPrecursor=FALSE,ionsMarge=FALSE,network=TRUE,idres=NULL,ms2tolfilter=1.2){
   dir.create(outdir,recursive = TRUE,showWarnings = FALSE)
   ph<-paste("java",paste("-Xmx",mem,"G",sep=""),"-jar",
             paste("\"",paste(system.file("java","pClean.jar",
@@ -73,31 +74,37 @@ pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2
   if(ionsMarge==TRUE){
     runcmd=paste(runcmd," -ionsMarge ",collapse=" ",sep=" ")
   }
+  if(network==TRUE){
+    runcmd=paste(runcmd," -network ",collapse = " ",sep=" ")
+  }
 
   message("Preprocessing begining ...")
   system(command=runcmd)
-  message("Graph-based network analysis ...")
-  fs <- readr::read_tsv(paste(outdir,"/spectrumInfor.txt",sep=""))
+  if (network==TRUE) {
+    message("Graph-based network analysis ...")
+    fs <- readr::read_tsv(paste(outdir,"/spectrumInfor.txt",sep=""))
 
-  if(cpu==1){
-    res <- fs %>% group_by(index) %>%
-      do(doNetwork(.,plot = plot,outdir = outdir))
-    return(res)
-  }else{
-    if(cpu==0){
-      cpu <- parallel::detectCores()
+    if(cpu==1){
+      res <- fs %>% group_by(index) %>%
+        do(doNetwork(.,plot = plot,outdir = outdir))
+      return(res)
+    }else{
+      if(cpu==0){
+        cpu <- parallel::detectCores()
+      }
+      cl <- parallel::makeCluster(getOption("cl.cores", cpu))
+      parallel::clusterEvalQ(cl,library("readr"))
+      parallel::clusterEvalQ(cl,library("dplyr"))
+      parallel::clusterEvalQ(cl,library("igraph"))
+      parallel::clusterEvalQ(cl,options(bitmapType="cairo"))
+      xx <- lapply(1:nrow(fs),.myfun,fs)
+      res <- parallel::parLapply(cl,xx,pClean::doNetwork,outdir=outdir,
+                                 plot=plot,outliers.coef=ms2tolfilter)
+      parallel::stopCluster(cl)
+      return(res)
     }
-    cl <- parallel::makeCluster(getOption("cl.cores", cpu))
-    parallel::clusterEvalQ(cl,library("readr"))
-    parallel::clusterEvalQ(cl,library("dplyr"))
-    parallel::clusterEvalQ(cl,library("igraph"))
-    parallel::clusterEvalQ(cl,options(bitmapType="cairo"))
-    xx <- lapply(1:nrow(fs),.myfun,fs)
-    res <- parallel::parLapply(cl,xx,pClean::doNetwork,outdir=outdir,
-                     plot=plot,outliers.coef=ms2tolfilter)
-    parallel::stopCluster(cl)
-    return(res)
   }
+  message("pClean complete.")
 }
 
 
