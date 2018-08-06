@@ -2,7 +2,7 @@
 
 ![Downloads](https://img.shields.io/github/downloads/AimeeD90/pClean_release/total.svg)
 
-pClean is a powerful tool to preprocess high-resolution tandem mass spectra prior to database searching, which integrated three modules, removal of label-associated ions, isotope peak reduction and charge deconvolution, and a graph-based network approach and aimed at filtering out extraneous peaks with/without specific-feature. pClean is supportive to a wide array of instruments with all types of MS data, and incorporative into most data analysis pipelines.
+pClean is a powerful tool to preprocess high-resolution tandem mass spectra prior to database searching, and aimed at filtering out extraneous peaks with/without specific-feature, which integrated three modules, removal of label-associated ions, isotope peak reduction and charge deconvolution, and a graph-based network approach. pClean is supportive to a wide array of instruments with all types of MS data, and incorporative into most data analysis pipelines.
 
 ## Resources and executive environment
 
