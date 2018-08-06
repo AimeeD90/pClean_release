@@ -41,7 +41,7 @@ pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2
                  collapse=" ",sep=" ")
   }
   if(!is.null(idres)){
-    runcmd=paste(runcmd, paste(" -m ", "\"",idres,"\"",sep=""),
+    runcmd=paste(runcmd, paste(" -idres ", "\"",idres,"\"",sep=""),
                  collapse=" ",sep=" ")
   }
   if(aa2==TRUE){
