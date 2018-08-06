@@ -18,8 +18,6 @@ pClean is programed in Java and R, and released as a R package.
 
 **Hardware:** 2 CPUs, 4 Gb memory (the more, the better)
 
-**MS/MS data for testing:** The testing data are available at [https://github.com/AimeeD90/pClean_upload.tar.gz](https://github.com/AimeeD90/pClean_upload.tar.gz).
-
 ## How to use pClean
 
 ### 3.1 Data transformation
@@ -53,7 +51,7 @@ library(pClean)
 
 ### 3.3 Usage
 
-Here, we use one fraction of TTE dataset (peptide labeled with iTRAQ8plex) and one fraction of Jurkat dataset (label free) as examples to illustrate how to use pClean. First of all, please download the sample data from the website: [https://github.com/AimeeD90/pClean_upload.tar.gz](https://github.com/AimeeD90/pClean_upload.tar.gz)
+Here, one fraction of TTE dataset (peptide labeled with iTRAQ8plex) and one fraction of Jurkat dataset (label free) were used as examples to illustrate how to use pClean. 
 
 **3.3.1  pClean treatment on label-based MS/MS data**
 
