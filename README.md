@@ -116,6 +116,10 @@ Once the progress completed, pClean creates a png directory and a gml directory.
 
 All the parameters of pClean are listed in the following table.
 
+Parameter |Description | Default value
+----------|------------|--------------
+mgf|Input MS/MS data|NULL
+itol|Fragment ion tolerance|0.5Da
 
 pClean provide with a function to eliminate the immonium ions from MS/MS data, and the list of immonium ions are got from reference. Filter out the immonium ions.
 
