@@ -9,7 +9,7 @@ pCleanGear(mgf = NULL, itol = 0.05, outdir = "./", mem = 1,
   labelMethod = NULL, repFilter = FALSE, labelFilter = FALSE,
   low = FALSE, high = FALSE, isoReduction = FALSE,
   chargeDeconv = FALSE, largerThanPrecursor = FALSE,
-  ionsMarge = FALSE, network = TRUE, idres = NULL,
+  ionsMerge = FALSE, network = TRUE, idres = NULL,
   ms2tolfilter = 1.2)
 }
 \arguments{
@@ -43,7 +43,7 @@ pCleanGear(mgf = NULL, itol = 0.05, outdir = "./", mem = 1,
 
 \item{largerThanPrecursor}{Remove ions larger than precursor, default FALSE.}
 
-\item{ionsMarge}{Marge two adjecent ions with similar m/z, default FALSE.}
+\item{ionsMerge}{Merge two adjecent ions with similar m/z, default FALSE.}
 
 \item{network}{Graph-based network filtration.}
 

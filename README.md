@@ -53,66 +53,7 @@ library(pClean)
 
 Here, one fraction of TTE dataset (peptide labeled with iTRAQ8plex) and one fraction of Jurkat dataset (label free) were used as examples to illustrate how to use pClean. 
 
-**3.3.1  pClean treatment on label-based MS/MS data**
-
-1)  Open R and load pClean, type: 
-
-```{r install, eval = FALSE}
-library(pClean)
-```
-
-2)  Set parameters then run pClean:
-
-```{r install, eval = FALSE}
-mgffile<-system.file("extdata/", "tte.frac1.mgf",package="pClean")
-pCleanGear(mgf=mgffile,outdir="tte/result",mem=2,cpu=0,mionFilter=TRUE,labelMethod="iTRAQ8plex",repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE,network=TRUE)
-```
-
-3)  The resultant MS/MS spectra are written to the ms/ms directory in separate files. To merge all the files, run this:
-
-```{r install, eval = FALSE}
-mergeMGF(dir="tte/result/msms",name="tte.frac1.pClean.mgf")
-```
-
-**3.3.2  pClean treatment on label-free MS/MS data**
-
-1)  Open R and load pClean, and type: 
-
-```{r install, eval = FALSE}
-library(pClean)
-```
-
-2)  Set parameters then run pClean:
-
-```{r install, eval = FALSE}
-mgffile<-system.file("extdata/", "120426_Jurkat_highLC_Frac1.mgf",package="pClean")
-pCleanGear(mgf=mgffile,outdir="jurkat/result",mem=2,cpu=0,mionFilter=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE,network=TRUE)
-```
-
-3)  The resultant MS/MS spectra are written to the ms/ms directory in separate files. To merge all the files, run this:
-
-```{r install, eval = FALSE}
-mergeMGF(dir="jurkat/result/msms",name="Jurkat.frac1.pClean.mgf")
-```
-
-**3.3.3  Visualization of ions-network**
-
-Optionally, if you want to visualize the construction of ions-network graph, and annotate ions with corresponding peptide fragment, you need do a database search in advance. At present, pClean supports parsing identification results from dat and mzid. The provided sample mzid file was generated using MSGF+ software. To fulfill this purpose, please use the following commands:
-
-```{r install, eval = FALSE}
-mgffile<-system.file("extdata/", "tte.frac1.mgf",package="pClean")
-datfile<-system.file("extdata/", "tte.frac1.asc.dat",package="pClean")
-pCleanGear(mgf=mgffile,outdir="tte/result",mem=2,cpu=0,mionFilter=TRUE,labelMethod="iTRAQ8plex",repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE,network=TRUE,plot=TRUE,idres=datfile)
-mergeMGF(dir="tte/result/msms",name="tte.frac1.pClean.mgf")
-
-mzidfile<-system.file("extdata/", "tte.frac1.mzid",package="pClean")
-pCleanGear(mgf=mgffile,outdir="tte/result",mem=2,cpu=0,mionFilter=TRUE,labelMethod="iTRAQ8plex",repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE,network=TRUE,plot=TRUE,idres=mzidfile)
-mergeMGF(dir="tte/result/msms",name="tte.frac1.pClean.mgf")
-```
-
-Once the progress completed, pClean creates a png directory and a gml directory. You can match a png or gml file to the corresponding MS/MS spectrum with the help of `spectrumInfor.txt (under the directory: tte/result/)`.
-
-**3.4  Parameters**
+**3.3.1  Parameters**
 
 All the parameters of pClean are listed in the following table.
 
@@ -141,7 +82,66 @@ ms2tolfilter|Fragment mass error tolerance filter limit|1.2
 
 pClean provide with a function to eliminate the immonium ions from MS/MS data, and the list of immonium ions are got from reference. Filter out the immonium ions.
 
-**3.5  Other filters**
+**3.3.2  pClean treatment on label-based MS/MS data**
+
+1)  Open R and load pClean, type: 
+
+```{r install, eval = FALSE}
+library(pClean)
+```
+
+2)  Set parameters then run pClean:
+
+```{r install, eval = FALSE}
+mgffile<-system.file("extdata/", "tte.frac1.mgf",package="pClean")
+pCleanGear(mgf=mgffile,outdir="tte/result",mem=2,cpu=0,mionFilter=TRUE,labelMethod="iTRAQ8plex",repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE,network=TRUE)
+```
+
+3)  The resultant MS/MS spectra are written to the ms/ms directory in separate files. To merge all the files, run this:
+
+```{r install, eval = FALSE}
+mergeMGF(dir="tte/result/msms",name="tte.frac1.pClean.mgf")
+```
+
+**3.3.3  pClean treatment on label-free MS/MS data**
+
+1)  Open R and load pClean, and type: 
+
+```{r install, eval = FALSE}
+library(pClean)
+```
+
+2)  Set parameters then run pClean:
+
+```{r install, eval = FALSE}
+mgffile<-system.file("extdata/", "120426_Jurkat_highLC_Frac1.mgf",package="pClean")
+pCleanGear(mgf=mgffile,outdir="jurkat/result",mem=2,cpu=0,mionFilter=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE,network=TRUE)
+```
+
+3)  The resultant MS/MS spectra are written to the ms/ms directory in separate files. To merge all the files, run this:
+
+```{r install, eval = FALSE}
+mergeMGF(dir="jurkat/result/msms",name="Jurkat.frac1.pClean.mgf")
+```
+
+**3.3.4  Visualization of ions-network**
+
+Optionally, if you want to visualize the construction of ions-network graph, and annotate ions with corresponding peptide fragment, you need do a database search in advance. At present, pClean supports parsing identification results from dat and mzid. The provided sample mzid file was generated using MSGF+ software. To fulfill this purpose, please use the following commands:
+
+```{r install, eval = FALSE}
+mgffile<-system.file("extdata/", "tte.frac1.mgf",package="pClean")
+datfile<-system.file("extdata/", "tte.frac1.asc.dat",package="pClean")
+pCleanGear(mgf=mgffile,outdir="tte/result",mem=2,cpu=0,mionFilter=TRUE,labelMethod="iTRAQ8plex",repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE,network=TRUE,plot=TRUE,idres=datfile)
+mergeMGF(dir="tte/result/msms",name="tte.frac1.pClean.mgf")
+
+mzidfile<-system.file("extdata/", "tte.frac1.mzid",package="pClean")
+pCleanGear(mgf=mgffile,outdir="tte/result",mem=2,cpu=0,mionFilter=TRUE,labelMethod="iTRAQ8plex",repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE,network=TRUE,plot=TRUE,idres=mzidfile)
+mergeMGF(dir="tte/result/msms",name="tte.frac1.pClean.mgf")
+```
+
+Once the progress completed, pClean creates a png directory and a gml directory. You can match a png or gml file to the corresponding MS/MS spectrum with the help of `spectrumInfor.txt (under the directory: tte/result/)`.
+
+**3.3.5  Other filters**
 
 Alternatively, pClean implements two reported filters in it, Top10 filter, a traditional intensity-based preprocessing method, and CRF filter (reference), a chemical rules-based approach but unavailable currently. 
 
