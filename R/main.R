@@ -17,12 +17,12 @@
 #' @param isoReduction Reduction of heavy isotopic peaks, default FALSE.
 #' @param chargeDeconv Charge deconvolution, default FALSE.
 #' @param largerThanPrecursor Remove ions larger than precursor, default FALSE.
-#' @param ionsMarge Marge two adjecent ions with similar m/z, default FALSE.
+#' @param ionsMerge Merge two adjecent ions with similar m/z, default FALSE.
 #' @param network Graph-based network filtration.
 #' @param idres Use MSGF identification result to annotate peaks (.mzid), default NULL.
 #' @return A much cleaner MS/MS data.
 #' @export
-pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2=TRUE,mionFilter=FALSE,labelMethod=NULL,repFilter=FALSE,labelFilter=FALSE,low=FALSE,high=FALSE,isoReduction=FALSE,chargeDeconv=FALSE,largerThanPrecursor=FALSE,ionsMarge=FALSE,network=TRUE,idres=NULL,ms2tolfilter=1.2){
+pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2=TRUE,mionFilter=FALSE,labelMethod=NULL,repFilter=FALSE,labelFilter=FALSE,low=FALSE,high=FALSE,isoReduction=FALSE,chargeDeconv=FALSE,largerThanPrecursor=FALSE,ionsMerge=FALSE,network=TRUE,idres=NULL,ms2tolfilter=1.2){
   dir.create(outdir,recursive = TRUE,showWarnings = FALSE)
   ph<-paste("java",paste("-Xmx",mem,"G",sep=""),"-jar",
             paste("\"",paste(system.file("java","pClean.jar",
@@ -71,8 +71,8 @@ pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2
   if(largerThanPrecursor==TRUE){
     runcmd=paste(runcmd," -largerThanPrecursor ",collapse=" ",sep=" ")
   }
-  if(ionsMarge==TRUE){
-    runcmd=paste(runcmd," -ionsMarge ",collapse=" ",sep=" ")
+  if(ionsMerge==TRUE){
+    runcmd=paste(runcmd," -ionsMerge ",collapse=" ",sep=" ")
   }
   if(network==TRUE){
     runcmd=paste(runcmd," -network ",collapse = " ",sep=" ")

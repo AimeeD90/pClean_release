@@ -116,10 +116,28 @@ Once the progress completed, pClean creates a png directory and a gml directory.
 
 All the parameters of pClean are listed in the following table.
 
-Parameter |Description | Default value
+Parameter|Description|Default value
 ----------|------------|--------------
 mgf|Input MS/MS data|NULL
-itol|Fragment ion tolerance|0.5Da
+itol|Fragment ion tolerance|0.05 (Da)
+outdir|Output directory|./
+mem|The maximum Java heap size, unit G|1
+cpu|Allowable number of CPU|0 (all)
+aa2|Consider mass gap of two amino acids|TRUE
+mionFilter|Filter out immonium ions|FALSE
+labelMethod|Peptide labeling method|NULL
+repFilter|Filter out reporter ions|FALSE
+labelFilter|Filter out label-associated ions|FALSE
+low|Clearance of low b-/y-ion free window|FALSE
+high|Clearance of high b-/y-ion free window|FALSE
+isoReduction|Heavy isotopic ions reduction|FALSE
+chargeDeconv|High charge deconvolution|FALSE
+largerThanPrecursor|Filter out ions larger than precursor’s mass|FALSE
+ionsMerge|Merge two ions of similar mass|FALSE
+network|Graph-based network filtration|FALSE
+plot|Plot ions-network|FALSE
+idres|Identification result, mzid or dat file|NULL
+ms2tolfilter|Fragment mass error tolerance filter limit|1.2
 
 pClean provide with a function to eliminate the immonium ions from MS/MS data, and the list of immonium ions are got from reference. Filter out the immonium ions.
 
