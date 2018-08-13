@@ -20,9 +20,10 @@
 #' @param ionsMerge Merge two adjecent ions with similar m/z, default FALSE.
 #' @param network Graph-based network filtration.
 #' @param idres Use MSGF identification result to annotate peaks (.mzid), default NULL.
+#' @param debug Whether to export edge file and peak file.
 #' @return A much cleaner MS/MS data.
 #' @export
-pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2=TRUE,mionFilter=FALSE,labelMethod=NULL,repFilter=FALSE,labelFilter=FALSE,low=FALSE,high=FALSE,isoReduction=FALSE,chargeDeconv=FALSE,largerThanPrecursor=FALSE,ionsMerge=FALSE,network=TRUE,idres=NULL,ms2tolfilter=1.2){
+pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2=TRUE,mionFilter=FALSE,labelMethod=NULL,repFilter=FALSE,labelFilter=FALSE,low=FALSE,high=FALSE,isoReduction=FALSE,chargeDeconv=FALSE,largerThanPrecursor=FALSE,ionsMerge=FALSE,network=TRUE,idres=NULL,ms2tolfilter=1.2,debug=FALSE){
   dir.create(outdir,recursive = TRUE,showWarnings = FALSE)
   ph<-paste("java",paste("-Xmx",mem,"G",sep=""),"-jar",
             paste("\"",paste(system.file("java","pClean.jar",
@@ -86,7 +87,7 @@ pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2
 
     if(cpu==1){
       res <- fs %>% group_by(index) %>%
-        do(doNetwork(.,plot = plot,outdir = outdir))
+        do(doNetwork(.,plot = plot,outdir = outdir, debug=debug))
       return(res)
     }else{
       if(cpu==0){
@@ -99,7 +100,7 @@ pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2
       parallel::clusterEvalQ(cl,options(bitmapType="cairo"))
       xx <- lapply(1:nrow(fs),.myfun,fs)
       res <- parallel::parLapply(cl,xx,pClean::doNetwork,outdir=outdir,
-                                 plot=plot,outliers.coef=ms2tolfilter)
+                                 plot=plot,outliers.coef=ms2tolfilter, debug=debug)
       parallel::stopCluster(cl)
       return(res)
     }
@@ -145,7 +146,7 @@ mergeMGF <- function(dir=NULL,name=NULL,clean=TRUE){
 #' @param outliers.coef Default 1.2
 #' @return MGF
 #' @export
-doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2){
+doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2,debug=FALSE){
   msms <- paste(outdir,"/msms",collapse = "",sep = "")
   if (dir.exists(msms)) {
   }else{
@@ -245,8 +246,10 @@ doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2){
               quote=FALSE,sep=" ",append = TRUE)
   write("END IONS\n",file = resMgf,append = TRUE)
 
-  file.remove(edgefile)
-  file.remove(vertexfile)
+  if (!debug) {
+    file.remove(edgefile)
+    file.remove(vertexfile)
+  }
   return(data.frame(npeak=vcount(g),rpeak=max(comp$csize)))
 }
 

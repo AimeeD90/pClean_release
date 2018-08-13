@@ -5,7 +5,7 @@
 \title{Do graph-based internet filtration}
 \usage{
 doNetwork(dat = NULL, plot = FALSE, outdir = "./",
-  outliers.coef = 1.2)
+  outliers.coef = 1.2, debug = FALSE)
 }
 \arguments{
 \item{dat}{_edge.txt file}

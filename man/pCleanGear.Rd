@@ -10,7 +10,7 @@ pCleanGear(mgf = NULL, itol = 0.05, outdir = "./", mem = 1,
   low = FALSE, high = FALSE, isoReduction = FALSE,
   chargeDeconv = FALSE, largerThanPrecursor = FALSE,
   ionsMerge = FALSE, network = TRUE, idres = NULL,
-  ms2tolfilter = 1.2)
+  ms2tolfilter = 1.2, debug = FALSE)
 }
 \arguments{
 \item{mgf}{Input MS/MS data in MGF format.}
@@ -50,6 +50,8 @@ pCleanGear(mgf = NULL, itol = 0.05, outdir = "./", mem = 1,
 \item{idres}{Use MSGF identification result to annotate peaks (.mzid), default NULL.}
 
 \item{ms2tolfilter}{Default 1.2.}
+
+\item{debug}{Whether to export edge file and peak file.}
 }
 \value{
 A much cleaner MS/MS data.
