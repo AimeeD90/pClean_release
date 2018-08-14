@@ -94,7 +94,7 @@ library(pClean)
 
 ```{r install, eval = FALSE}
 mgffile<-system.file("extdata/", "tte.frac1.mgf",package="pClean")
-pCleanGear(mgf=mgffile,outdir="tte/result",mem=2,cpu=0,mionFilter=TRUE,labelMethod="iTRAQ8plex",repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE,network=TRUE)
+pCleanGear(mgf=mgffile,outdir="tte/result",mem=2,cpu=0,mionFilter=TRUE,labelMethod="iTRAQ8plex",repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMerge=TRUE,network=TRUE)
 ```
 
 3)  The resultant MS/MS spectra are written to the ms/ms directory in separate files. To merge all the files, run this:
@@ -115,7 +115,7 @@ library(pClean)
 
 ```{r install, eval = FALSE}
 mgffile<-system.file("extdata/", "120426_Jurkat_highLC_Frac1.mgf",package="pClean")
-pCleanGear(mgf=mgffile,outdir="jurkat/result",mem=2,cpu=0,mionFilter=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE,network=TRUE)
+pCleanGear(mgf=mgffile,outdir="jurkat/result",mem=2,cpu=0,mionFilter=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMerge=TRUE,network=TRUE)
 ```
 
 3)  The resultant MS/MS spectra are written to the ms/ms directory in separate files. To merge all the files, run this:
@@ -131,11 +131,11 @@ Optionally, if you want to visualize the construction of ions-network graph, and
 ```{r install, eval = FALSE}
 mgffile<-system.file("extdata/", "tte.frac1.mgf",package="pClean")
 datfile<-system.file("extdata/", "tte.frac1.asc.dat",package="pClean")
-pCleanGear(mgf=mgffile,outdir="tte/result",mem=2,cpu=0,mionFilter=TRUE,labelMethod="iTRAQ8plex",repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE,network=TRUE,plot=TRUE,idres=datfile)
+pCleanGear(mgf=mgffile,outdir="tte/result",mem=2,cpu=0,mionFilter=TRUE,labelMethod="iTRAQ8plex",repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMerge=TRUE,network=TRUE,plot=TRUE,idres=datfile)
 mergeMGF(dir="tte/result/msms",name="tte.frac1.pClean.mgf")
 
 mzidfile<-system.file("extdata/", "tte.frac1.mzid",package="pClean")
-pCleanGear(mgf=mgffile,outdir="tte/result",mem=2,cpu=0,mionFilter=TRUE,  labelMethod="iTRAQ8plex",repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,  isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMarge=TRUE,  network=TRUE,plot=TRUE,idres=mzidfile)
+pCleanGear(mgf=mgffile,outdir="tte/result",mem=2,cpu=0,mionFilter=TRUE,  labelMethod="iTRAQ8plex",repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,  isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMerge=TRUE,  network=TRUE,plot=TRUE,idres=mzidfile)
 mergeMGF(dir="tte/result/msms",name="tte.frac1.pClean.mgf")
 ```
 
