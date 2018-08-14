@@ -135,7 +135,7 @@ pCleanGear(mgf=mgffile,outdir="tte/result",mem=2,cpu=0,mionFilter=TRUE,labelMeth
 mergeMGF(dir="tte/result/msms",name="tte.frac1.pClean.mgf")
 
 mzidfile<-system.file("extdata/", "tte.frac1.mzid",package="pClean")
-pCleanGear(mgf=mgffile,outdir="tte/result",mem=2,cpu=0,mionFilter=TRUE,  labelMethod="iTRAQ8plex",repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,  isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMerge=TRUE,  network=TRUE,plot=TRUE,idres=mzidfile)
+pCleanGear(mgf=mgffile,outdir="tte/result",mem=2,cpu=0,mionFilter=TRUE,labelMethod="iTRAQ8plex",repFilter=TRUE,labelFilter=TRUE,low=TRUE,high=TRUE,isoReduction=TRUE,chargeDeconv=TRUE,largerThanPrecursor=TRUE,ionsMerge=TRUE,network=TRUE,plot=TRUE,idres=mzidfile)
 mergeMGF(dir="tte/result/msms",name="tte.frac1.pClean.mgf")
 ```
 
