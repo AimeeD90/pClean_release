@@ -32,8 +32,19 @@ pClean was released as a R package and distributed through GitHub. The installat
 
 Note that if you are a Windows user, please add Java path to the system path after the Java installation.
 
-* Open R software (recommended RStudio), and install package "devtools" via commands:
+**3.2.1  Install pClean from a local .tar.gz file:**
 
+* Firstly, please download pClean_0.1.0.tar.gz from [https://github.com/AimeeD90/Public_Packages](https://github.com/AimeeD90/Public_Packages) (or [http://metax.genomics.cn/pClean/](http://metax.genomics.cn/pClean/))
+
+* Then, install pClean package using the following command:
+
+```{r install, eval = FALSE}
+install.packages(file_path,repos=NULL,type="source") # please replace the file_path with the real path of pClean package; eg:install.packages("F:/pClean_0.1.0.tar.gz",repos=NULL,type="source")
+```
+
+**3.2.2  Install the pClean package using devtools online:**
+
+* Open R software (recommended RStudio), and install package "devtools" via commands:
 
 ```{r install, eval = FALSE}
 install.packages("devtools")
@@ -47,7 +58,9 @@ devtools::install_github("AimeeD90/pClean_release")
 library(pClean)
 ```
 
-* Now pClean is executable on your work station.
+* Note that: Sometimes an error ("Http error 403") would be occured when you install the pClean package using devtools, it is better to try more than once, or try again another day.
+
+Now pClean is executable on your work station.
 
 ### 3.3 Usage
 
