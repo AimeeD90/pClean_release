@@ -165,4 +165,4 @@ To use CRF filter, run the following command:
 
 ### Contact Us
 
-If you have any questions, suggestions or remarks, please contact: dengyamei@genomics.cn.
+If you have any questions, suggestions or remarks, please contact: aimee.d.ym@gmail.com.
