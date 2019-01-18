@@ -34,7 +34,7 @@ Note that if you are a Windows user, please add Java path to the system path aft
 
 **3.2.1  Install the pClean package from a local .tar.gz file:**
 
-* Firstly, please download pClean_0.1.0.tar.gz from [https://github.com/AimeeD90/Public_Packages/archive/master.zip](https://github.com/AimeeD90/Public_Packages/archive/master.zip) (or [http://metax.genomics.cn/pClean/](http://metax.genomics.cn/pClean/))
+* Firstly, please download pClean_0.1.0.tar.gz from [http://metax.genomics.cn/pClean/files/pClean_0.1.0.tar.gz](http://metax.genomics.cn/pClean/files/pClean_0.1.0.tar.gz) (or [https://github.com/AimeeD90/Public_Packages/archive/master.zip](https://github.com/AimeeD90/Public_Packages/archive/master.zip))
 
 * Then, install pClean package using the following command:
 
