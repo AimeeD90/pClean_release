@@ -42,7 +42,7 @@ Note that if you are a Windows user, please add Java path to the system path aft
 install.packages(file_path,repos=NULL,type="source") # please replace the file_path with the real path of pClean package; eg:install.packages("F:/pClean_0.1.0.tar.gz",repos=NULL,type="source")
 ```
 
-**3.2.2  Install the pClean package using devtools online:**
+**3.2.2  Install the remote pClean package from GitHub using devtools package:**
 
 * Open R software (recommended RStudio), and install package "devtools" via commands:
 
@@ -58,7 +58,14 @@ devtools::install_github("AimeeD90/pClean_release")
 library(pClean)
 ```
 
-* Note that: Sometimes an error ("Http error 403") would be occured when you install the pClean package using devtools, it is better to try more than once, or try again another day.
+* If you already have a previous version of pClean installed, you can use that to install the development version:
+
+```{r install, eval = FALSE}
+remotes::install_github("AimeeD90/pClean_release")
+library(pClean)
+```
+
+* Note that: Sometimes an error ("Http error 403") would be occured when you install the remote pClean package from GitHub using devtools packagethe, it is better to try more than once, or try again another day.
 
 Now pClean is executable on your work station.
 
