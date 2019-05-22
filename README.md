@@ -99,6 +99,7 @@ network|Graph-based network filtration|FALSE
 plot|Plot ions-network|FALSE
 idres|Identification result, mzid or dat file|NULL
 ms2tolfilter|Fragment mass error tolerance filter limit|1.2
+debug|keep the edge and peak files for looking up|FALSE
 
 pClean provide with a function to eliminate the immonium ions from MS/MS data, and the list of immonium ions are got from reference. Filter out the immonium ions.
 
