@@ -15,6 +15,8 @@ doNetwork(dat = NULL, plot = FALSE, outdir = "./",
 \item{outdir}{Output directory, default current directory}
 
 \item{outliers.coef}{Default 1.2}
+
+\item{debug}{Default FALSE}
 }
 \value{
 MGF

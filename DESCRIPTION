@@ -16,6 +16,6 @@ LazyData: FALSE
 Depends: R (>= 3.5.0)
 Imports: igraph,dplyr,readr,parallel
 Suggests:
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.1.1
 NeedsCompilation: no
 Packaged: 2018-07-11 09:13:33 UTC; dengyamei

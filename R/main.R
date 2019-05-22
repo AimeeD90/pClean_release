@@ -144,6 +144,7 @@ mergeMGF <- function(dir=NULL,name=NULL,clean=TRUE){
 #' @param plot Plot ions-interaction network, default FALSE
 #' @param outdir Output directory, default current directory
 #' @param outliers.coef Default 1.2
+#' @param debug Default FALSE
 #' @return MGF
 #' @export
 doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2,debug=FALSE){
@@ -160,7 +161,7 @@ doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2,debug=FA
   edgelist <- edgelist %>% mutate(From = as.character(From),
                                   To = as.character(To),
                                   naa = nchar(deltaName)) # %>%
-  #filter(naa==1)
+  # filter(naa==1)
   # if interactions of two ions has both high-level interactions and low-level interactions,
   # pClean remains high-level ones and remove low-level ones to simplify the ions-network
   edgelist %>% group_by(To) %>% do(.afun(.)) -> edgelist
