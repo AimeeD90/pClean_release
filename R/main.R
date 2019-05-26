@@ -164,6 +164,123 @@ doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2,debug=FA
   # filter(naa==1)
   # if interactions of two ions has both high-level interactions and low-level interactions,
   # pClean remains high-level ones and remove low-level ones to simplify the ions-network
+  edgelist %>% group_by(To) %>% do(simplify(.)) -> edgelist
+  edgelist %>% group_by(From) %>% do(simplify(.)) -> edgelist
+
+  vlist <- read.delim(vertexfile,stringsAsFactors = FALSE)
+  vlist <- vlist %>% mutate(name = as.character(name))
+
+  # remove higher error interactions
+  edgelist <- edgelist[!.sel.outliers(edgelist$mztol,outliers.coef = outliers.coef),]
+
+  # built graph
+  g <- graph_from_data_frame(edgelist,
+                             directed = TRUE,
+                             vertices = vlist)
+
+  V(g)$degree <- degree(g)
+  V(g)$degreeIn <- degree(g,mode="in")
+  V(g)$degreeOut <- degree(g,mode="out")
+  V(g)$closeness <- closeness(g)
+  V(g)$bet <- betweenness(g)
+  V(g)[!is.na(type)]$color <- "red"
+  V(g)[is.na(type)]$color <- "black"
+  E(g)$weight <- ifelse(E(g)$naa==1,6,1)
+
+  if(TRUE==plot){
+    png <- paste(outdir,"/png",collapse = "",sep = "")
+    if (dir.exists(png)) {
+    }else{
+      dir.create(png)
+    }
+    gml <- paste(outdir,"/gml",collapse = "",sep = "")
+    if (dir.exists(gml)) {
+    }else{
+      dir.create(gml)
+    }
+    fileprefixpng = paste(png,"/",dat$index,sep="")
+    fileprefixgml = paste(gml,"/",dat$index,sep="")
+
+    png(paste(fileprefixpng,".png",sep=""),width = 700,height = 700,res=110)
+    par(mar=c(0,0,0,0))
+    plot(g,vertex.label=V(g)$type,
+         vertex.label.cex=0.6,
+         vertex.size=log2(V(g)$intensity+1)/2,
+         edge.label.cex=0.5,
+         edge.arrow.size=0.3,
+         layout=layout_nicely)
+    dev.off()
+    write_graph(g,file=paste(fileprefixgml,".gml",sep=""),format = "gml")
+  }
+
+  comp <- components(g,mode="weak")
+  max_ind <- which.max(comp$csize)
+  vertex_name <- names(comp$membership[comp$membership==max_ind])
+
+
+  y1 <- setdiff(names(comp$membership),vertex_name)[grepl("175.1",setdiff(names(comp$membership),vertex_name))]
+  vertex_name <- c(vertex_name,y1)
+  y1 <- setdiff(names(comp$membership),vertex_name)[grepl("291.2",setdiff(names(comp$membership),vertex_name))]
+  vertex_name <- c(vertex_name,y1)
+  y1 <- setdiff(names(comp$membership),vertex_name)[grepl("451.3",setdiff(names(comp$membership),vertex_name))]
+  vertex_name <- c(vertex_name,y1)
+  y1 <- setdiff(names(comp$membership),vertex_name)[grepl("147.1",setdiff(names(comp$membership),vertex_name))]
+  vertex_name <- c(vertex_name,y1)
+
+  peaks <- igraph::as_data_frame(g,what="vertices") %>%
+    filter(name %in% vertex_name) %>%
+    select(name,intensity) %>%
+    mutate(name=as.numeric(name)) %>%
+    arrange(name)
+  mgftitle <- paste("BEGIN IONS\n",
+                    "TITLE=",dat$title,"\n",
+                    "PEPMASS=",dat$mz," ",dat$intensity,"\n",
+                    "CHARGE=",dat$charge,"+",sep="")
+
+
+  mgffile <- sub(pattern = ".txt$",replacement = ".mgf",x= tail(unlist(strsplit(dat$vertex,"/")),1))
+  #mgffile <- sub(pattern = ".txt$",replacement = ".mgf",x=dat$vertex)
+  resMgf <- paste(msms,"/",mgffile,collapse="",sep="")
+  write(mgftitle,file = resMgf)
+  write.table(peaks,file = resMgf,
+              col.names = FALSE,row.names = FALSE,
+              quote=FALSE,sep=" ",append = TRUE)
+  write("END IONS\n",file = resMgf,append = TRUE)
+
+  if (!debug) {
+    file.remove(edgefile)
+    file.remove(vertexfile)
+  }
+  return(data.frame(npeak=vcount(g),rpeak=max(comp$csize)))
+}
+
+
+#' @title Do graph-based internet filtration
+#' @description Do graph-based internet filtration
+#' @param dat _edge.txt file
+#' @param plot Plot ions-interaction network, default FALSE
+#' @param outdir Output directory, default current directory
+#' @param outliers.coef Default 1.2
+#' @param debug Default FALSE
+#' @return MGF
+#' @export
+doNetworkLoose <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2,debug=FALSE){
+  msms <- paste(outdir,"/msms",collapse = "",sep = "")
+  if (dir.exists(msms)) {
+  }else{
+    dir.create(msms)
+  }
+
+  edgefile <- dat$edge
+  vertexfile <- dat$vertex
+
+  edgelist <- readr::read_tsv(edgefile,na = "")
+  edgelist <- edgelist %>% mutate(From = as.character(From),
+                                  To = as.character(To),
+                                  naa = nchar(deltaName)) # %>%
+  # filter(naa==1)
+  # if interactions of two ions has both high-level interactions and low-level interactions,
+  # pClean remains high-level ones and remove low-level ones to simplify the ions-network
   edgelist %>% group_by(To) %>% do(.afun(.)) -> edgelist
   edgelist %>% group_by(From) %>% do(.afun(.)) -> edgelist
 
@@ -266,6 +383,29 @@ doNetwork <- function(dat=NULL,plot=FALSE,outdir="./",outliers.coef=1.2,debug=FA
 
     x <- filter(x, naa!=2)
   }
+  return(x)
+}
+
+
+#' @title Simplify the ion-interactions based on the formula level
+#' @description Simplify the ion-interactions based on the formula level
+#' @param x Ion-interactions
+#' @return Simplified ion-interactions
+#' @export
+simplify = function(x){
+  ## first step: remove edges like: H2OH2O, NH3NH3,Parent-H2OH2O, Parent-NH3NH3
+  x <- filter(x, deltaName!="H2OH2O" & deltaName!="NH3NH3" & deltaName!="NH3H2O" & deltaName!="H2ONH3" & deltaName!="Parent-H2OH2O" & deltaName!="Parent-NH3NH3" )
+
+  ## second step: if a node has 1 (1 amino acid), 2 (2 amino acids), 6 (Parent), 8 (Parent-amino acid), 9 (Parent-2 amino acid), remove other type of edges
+  if (sum(x$naa==1)+sum(x$naa==2)+sum(x$naa==6)+sum(x$naa==8)+sum(x$naa==9) >= 1) {
+    x <- filter(x, naa==1 | naa==2 | naa==6 | naa==8 | naa==9)
+  }
+
+  ## third step: if a node has 1 (1 amino acid), 6 (Parent) or 8 (Parent-amino acid), remove other type of edges
+  if (sum(x$naa==1) + sum(x$naa==6) + sum(x$naa==8) >= 1) {
+    x <- filter(x, naa==1 | naa==6 | naa==8)
+  }
+
   return(x)
 }
 
