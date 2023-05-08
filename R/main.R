@@ -114,19 +114,49 @@ pCleanGear <- function(mgf=NULL,itol=0.05,outdir="./",mem=1,cpu=0,plot=FALSE,aa2
 #' @param dir The directry of MS/MS data
 #' @param name Merged file name
 #' @param clean Delete individual MS/MS spectrum file
-#' @return MGF
+#' @return NULL
 #' @export
 mergeMGF <- function(dir=NULL,name=NULL,clean=TRUE){
-  spectraList <- list.files(dir)
-  currentdir <- getwd()
-  setwd(dir)
-  file.create(name)
-  file.append(name,spectraList)
-  if (clean) {
-    file.remove(spectraList)
+  resMgf <- file.path(dir,name)
+  if(file.exists(resMgf)){
+    unlink(resMgf)
   }
-  setwd(currentdir)
-  return(length(spectraList))
+
+  spectraList <- list.files(dir, pattern = ".MGF|.mgf")
+  runCount <- length(spectraList)
+  if(runCount>0){
+    cat(paste0("*** ",runCount," will be merged into ",name))
+  }else{
+    stop(paste0("No mgf files detected in ",dir))
+  }
+
+  file.create(resMgf)
+  if(runCount>20){
+    pb <- txtProgressBar(min = 0,
+                         max = runCount,
+                         style = 3,
+                         width = 50,
+                         char = "=")
+
+    for(i in seq(runCount)){
+      message(paste0(" # working on ", spectraList[i]))
+      spectraList[i] <- file.path(dir,spectraList[i])
+      file.append(resMgf,spectraList[i])
+      setTxtProgressBar(pb, i)
+    }
+    close(pb)
+
+  }else{
+    cat("*** merging")
+    spectraList <- sapply(spectraList, function(x) file.path(dir,x))
+    file.append(resMgf,spectraList)
+  }
+
+  if (clean) {
+    cat("*** delete original mgf files, only keep the merged one")
+    unlink(spectraList)
+  }
+
 }
 
 #' @title Make a list nesting another list
